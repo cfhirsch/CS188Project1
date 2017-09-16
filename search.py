@@ -85,8 +85,50 @@ def depthFirstSearch(problem):
     print "Start:", problem.getStartState()
     print "Is the start a goal?", problem.isGoalState(problem.getStartState())
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
+
+    procedure DFS-iterative(G,v):
+2      let S be a stack
+3      S.push(v)
+4      while S is not empty
+5          v = S.pop()
+6          if v is not labeled as discovered:
+7              label v as discovered
+8              for all edges from v to w in G.adjacentEdges(v) do 
+9                  S.push(w)
+    
     """
     "*** YOUR CODE HERE ***"
+
+    from game import Directions
+    s = Directions.SOUTH
+    w = Directions.WEST
+    n = Directions.NORTH
+    e = Directions.EAST
+    stop = Directions.STOP
+    
+    path = []
+    stack = Stack()
+    visited = []
+
+    """
+    The stack contains tuples of the form (state, predecessor, action)
+    where
+    state = the current state we're looking at
+    predecessor is the previous state
+    action is the direction to go to get from the predecessor to this state
+    """
+    v = problem.getStartState()
+    stack.push((v, None, stop))
+    while !stack.isEmpty :
+        (v, pred, direction) = stack.pop()
+        if problem.isGoalState(v) :
+            return path
+        if v not in visited :
+            visited.append((v)
+            for neighbor in v.getSuccessors()
+    
+    for direction in 
+    
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
