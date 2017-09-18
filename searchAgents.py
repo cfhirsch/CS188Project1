@@ -254,6 +254,9 @@ def manhattanHeuristic(position, problem, info={}):
     "The Manhattan distance heuristic for a PositionSearchProblem"
     xy1 = position
     xy2 = problem.goal
+    return manhattanDistance(xy1, xy2)
+
+def manhattanDistance(xy1, xy2):
     return abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1])
 
 def euclideanHeuristic(position, problem, info={}):
@@ -265,6 +268,14 @@ def euclideanHeuristic(position, problem, info={}):
 #####################################################
 # This portion is incomplete.  Time to write code!  #
 #####################################################
+
+class Corner():
+    Nope = 0
+    BottomLeft = 0x01
+    TopLeft = 0x02
+    BottomRight = 0x04
+    TopRight = 0x08
+    All = BottomLeft | TopLeft | BottomRight | TopRight
 
 class CornersProblem(search.SearchProblem):
     """
@@ -294,15 +305,14 @@ class CornersProblem(search.SearchProblem):
         Returns the start state (in your state space, not the full Pacman state
         space)
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return (self.startingPosition, Corner.Nope)
 
     def isGoalState(self, state):
         """
         Returns whether this search state is a goal state of the problem.
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        (pos, cornersVisited) = state
+        return cornersVisited == Corner.All
 
     def getSuccessors(self, state):
         """
@@ -319,12 +329,29 @@ class CornersProblem(search.SearchProblem):
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             # Add a successor state to the successor list if the action is legal
             # Here's a code snippet for figuring out whether a new position hits a wall:
-            #   x,y = currentPosition
-            #   dx, dy = Actions.directionToVector(action)
-            #   nextx, nexty = int(x + dx), int(y + dy)
-            #   hitsWall = self.walls[nextx][nexty]
+            currentPosition, cornersVisited = state
+            x,y = currentPosition
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+            hitsWall = self.walls[nextx][nexty]
 
-            "*** YOUR CODE HERE ***"
+            if not hitsWall:
+                nextPosition = (nextx, nexty)
+                nextCornersVisited = cornersVisited
+                if nextPosition == self.corners[0]:
+                    nextCornersVisited |= Corner.BottomLeft
+
+                if nextPosition == self.corners[1]:
+                    nextCornersVisited |= Corner.TopLeft
+
+                if nextPosition == self.corners[2]:
+                    nextCornersVisited |= Corner.BottomRight
+
+                if nextPosition == self.corners[3]:
+                    nextCornersVisited |= Corner.TopRight
+                    
+                nextState = (nextPosition, nextCornersVisited)
+                successors.append((nextState, action, 1))
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
@@ -342,7 +369,6 @@ class CornersProblem(search.SearchProblem):
             if self.walls[x][y]: return 999999
         return len(actions)
 
-
 def cornersHeuristic(state, problem):
     """
     A heuristic for the CornersProblem that you defined.
@@ -359,8 +385,21 @@ def cornersHeuristic(state, problem):
     corners = problem.corners # These are the corner coordinates
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
-    "*** YOUR CODE HERE ***"
-    return 0 # Default to trivial solution
+    cost = 0
+    (currentPos, cornersVisited) = state
+    if Corner.BottomLeft & cornersVisited != Corner.BottomLeft:
+        cost += manhattanDistance(currentPos, corners[0])
+
+    if Corner.TopLeft & cornersVisited != Corner.TopLeft:
+        cost += manhattanDistance(currentPos, corners[1])
+
+    if Corner.BottomRight & cornersVisited != Corner.BottomRight:
+        cost += manhattanDistance(currentPos, corners[2])
+
+    if Corner.TopRight & cornersVisited != Corner.TopRight:
+        cost += manhattanDistance(currentPos, corners[3])
+        
+    return cost
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
@@ -453,8 +492,22 @@ def foodHeuristic(state, problem):
     problem.heuristicInfo['wallCount']
     """
     position, foodGrid = state
-    "*** YOUR CODE HERE ***"
-    return 0
+    pellets = foodGrid.asList()
+    minPos = (100000, 100000)
+    minDist = 100000
+
+    if len(pellets) == 0:
+        return 0
+    
+    for pellet in pellets:
+        dist = manhattanDistance(position, pellet)
+        if dist < minDist:
+            minPos = pellet
+            minDist = dist
+
+    result = minDist + len(pellets)
+    print "Heuristic:", result
+    return result
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"

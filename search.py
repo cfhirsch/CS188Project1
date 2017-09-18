@@ -80,61 +80,51 @@ def depthFirstSearch(problem):
     goal. Make sure to implement a graph search algorithm.
 
     To get started, you might want to try some of these simple commands to
-    understand the search problem that is being passed in:
-
-    print "Start:", problem.getStartState()
-    print "Is the start a goal?", problem.isGoalState(problem.getStartState())
-    print "Start's successors:", problem.getSuccessors(problem.getStartState())
-
-    procedure DFS-iterative(G,v):
-2      let S be a stack
-3      S.push(v)
-4      while S is not empty
-5          v = S.pop()
-6          if v is not labeled as discovered:
-7              label v as discovered
-8              for all edges from v to w in G.adjacentEdges(v) do 
-9                  S.push(w)
-    
+    understand the search problem that is being passed in:    
     """
-    "*** YOUR CODE HERE ***"
-
-    from game import Directions
-    s = Directions.SOUTH
-    w = Directions.WEST
-    n = Directions.NORTH
-    e = Directions.EAST
-    stop = Directions.STOP
+    from util import Stack
+    return abstractSearch(problem, Stack())
     
+
+def buildPath(pred, goal):
     path = []
-    stack = Stack()
-    visited = []
+    current = goal
+    (prev, action) = pred[current]
+    while prev is not None :
+        path.insert(0, action)
+        current = prev
+        (prev, action) = pred[current]
 
-    """
-    The stack contains tuples of the form (state, predecessor, action)
-    where
-    state = the current state we're looking at
-    predecessor is the previous state
-    action is the direction to go to get from the predecessor to this state
-    """
-    v = problem.getStartState()
-    stack.push((v, None, stop))
-    while !stack.isEmpty :
-        (v, pred, direction) = stack.pop()
-        if problem.isGoalState(v) :
-            return path
-        if v not in visited :
-            visited.append((v)
-            for neighbor in v.getSuccessors()
-    
-    for direction in 
-    
-    util.raiseNotDefined()
+    print "Path", path
+    return path
 
 def breadthFirstSearch(problem):
-    """Search the shallowest nodes in the search tree first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    from util import Queue
+    return abstractSearch(problem, Queue())
+
+def abstractSearch(problem, fringe):
+    from game import Directions
+    visited = []
+    pred = {}
+
+    v = problem.getStartState()
+    fringe.push(v)
+    pred[v] = (None, Directions.STOP)
+    while not fringe.isEmpty() :
+        v = fringe.pop()
+        if problem.isGoalState(v) :
+            print "Found goal!"
+            print v, pred[v]
+            break
+        if v not in visited :
+            visited.append(v)
+            print "State:", v
+            for (neighbor, action, cost) in problem.getSuccessors(v) :
+                fringe.push(neighbor)
+                if neighbor not in visited:
+                    pred[neighbor] = (v, action)
+                    
+    return buildPath(pred, v)
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
