@@ -510,12 +510,15 @@ def foodHeuristic(state, problem):
     return result
 
 class ClosestDotSearchAgent(SearchAgent):
+    def __init__(self):
+        self.subSearchFunction = search.breadthFirstSearch
+    
     "Search for all food using a sequence of searches"
     def registerInitialState(self, state):
         self.actions = []
         currentState = state
         while(currentState.getFood().count() > 0):
-            nextPathSegment = self.findPathToClosestDot(currentState) # The missing piece
+            nextPathSegment = self.findPathToClosestDot(currentState) 
             self.actions += nextPathSegment
             for action in nextPathSegment:
                 legal = currentState.getLegalActions()
@@ -537,8 +540,7 @@ class ClosestDotSearchAgent(SearchAgent):
         walls = gameState.getWalls()
         problem = AnyFoodSearchProblem(gameState)
 
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return self.subSearchFunction(problem)
 
 class AnyFoodSearchProblem(PositionSearchProblem):
     """
@@ -573,8 +575,7 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         """
         x,y = state
 
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return self.food[x][y]
 
 def mazeDistance(point1, point2, gameState):
     """

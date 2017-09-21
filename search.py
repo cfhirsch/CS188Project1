@@ -104,32 +104,36 @@ def breadthFirstSearch(problem):
 
 def abstractSearch(problem, fringe):
     from game import Directions
-    visited = []
-    pred = {}
-
-    v = problem.getStartState()
-    fringe.push(v)
-    pred[v] = (None, Directions.STOP)
-    while not fringe.isEmpty() :
-        v = fringe.pop()
+    discovered = []
+    start = problem.getStartState()
+    fringe.push((start, []))
+    
+    while not fringe.isEmpty():
+        (v, path) = fringe.pop()
         if problem.isGoalState(v) :
-            print "Found goal!"
-            print v, pred[v]
-            break
-        if v not in visited :
-            visited.append(v)
-            print "State:", v
+            return path
+        
+        if v not in discovered:
+            discovered.append(v)
             for (neighbor, action, cost) in problem.getSuccessors(v) :
-                fringe.push(neighbor)
-                if neighbor not in visited:
-                    pred[neighbor] = (v, action)
-                    
-    return buildPath(pred, v)
+                fringe.push((neighbor, path + [action]))
 
 def uniformCostSearch(problem):
-    """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    from util import PriorityQueue()
+    node = problem.getStartState()
+    frontier = PriorityQueue()
+    frontier.push((start, []), 0)
+    explored = []
+
+    while not frontier.isEmpty():
+        (node, path) = frontier.pop()
+        if problem.isGoalState(node):
+            return path
+
+        explored.append(node)
+        for (neighbor, action, nextCost) in problem.getSuccessors(node) :
+            if neighbor not in explored:
+                frontier.update((neighbor, cost + nextCost)
 
 def nullHeuristic(state, problem=None):
     """

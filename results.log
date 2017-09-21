@@ -1,0 +1,154 @@
+Starting on 9-18 at 18:39:50
+
+Question q1
+===========
+
+*** PASS: test_cases\q1\graph_backtrack.test
+*** 	solution:		['1:A->C', '0:C->G']
+*** 	expanded_states:	['A', 'D', 'C']
+*** PASS: test_cases\q1\graph_bfs_vs_dfs.test
+*** 	solution:		['2:A->D', '0:D->G']
+*** 	expanded_states:	['A', 'D']
+*** PASS: test_cases\q1\graph_infinite.test
+*** 	solution:		['0:A->B', '1:B->C', '1:C->G']
+*** 	expanded_states:	['A', 'B', 'C']
+*** PASS: test_cases\q1\graph_manypaths.test
+*** 	solution:		['2:A->B2', '0:B2->C', '0:C->D', '2:D->E2', '0:E2->F', '0:F->G']
+*** 	expanded_states:	['A', 'B2', 'C', 'D', 'E2', 'F']
+*** PASS: test_cases\q1\pacman_1.test
+*** 	pacman layout:		mediumMaze
+*** 	solution length: 130
+*** 	nodes expanded:		146
+
+### Question q1: 3/3 ###
+
+
+Question q2
+===========
+
+*** PASS: test_cases\q2\graph_backtrack.test
+*** 	solution:		['1:A->C', '0:C->G']
+*** 	expanded_states:	['A', 'B', 'C', 'D']
+*** PASS: test_cases\q2\graph_bfs_vs_dfs.test
+*** 	solution:		['1:A->G']
+*** 	expanded_states:	['A', 'B']
+*** PASS: test_cases\q2\graph_infinite.test
+*** 	solution:		['0:A->B', '1:B->C', '1:C->G']
+*** 	expanded_states:	['A', 'B', 'C']
+*** PASS: test_cases\q2\graph_manypaths.test
+*** 	solution:		['1:A->C', '0:C->D', '1:D->F', '0:F->G']
+*** 	expanded_states:	['A', 'B1', 'C', 'B2', 'D', 'E1', 'F', 'E2']
+*** PASS: test_cases\q2\pacman_1.test
+*** 	pacman layout:		mediumMaze
+*** 	solution length: 68
+*** 	nodes expanded:		269
+
+### Question q2: 3/3 ###
+
+
+Question q3
+===========
+
+*** Method not implemented: uniformCostSearch at line 124 of search.py
+*** FAIL: Terminated with a string exception.
+
+### Question q3: 0/3 ###
+
+
+Question q4
+===========
+
+*** Method not implemented: aStarSearch at line 136 of search.py
+*** FAIL: Terminated with a string exception.
+
+### Question q4: 0/3 ###
+
+
+Question q5
+===========
+
+*** PASS: test_cases\q5\corner_tiny_corner.test
+*** 	pacman layout:		tinyCorner
+*** 	solution length:		28
+
+### Question q5: 3/3 ###
+
+
+Question q6
+===========
+
+*** NOTE: Make sure to complete Question q4 before working on Question q6,
+*** because Question q6 builds upon your answer for Question q4.
+
+
+Question q7
+===========
+
+*** NOTE: Make sure to complete Question q4 before working on Question q7,
+*** because Question q7 builds upon your answer for Question q4.
+
+
+Question q8
+===========
+
+*** PASS: test_cases\q8\closest_dot_1.test
+*** 	pacman layout:		Test 1
+*** 	solution length:		1
+*** PASS: test_cases\q8\closest_dot_10.test
+*** 	pacman layout:		Test 10
+*** 	solution length:		1
+*** PASS: test_cases\q8\closest_dot_11.test
+*** 	pacman layout:		Test 11
+*** 	solution length:		2
+*** PASS: test_cases\q8\closest_dot_12.test
+*** 	pacman layout:		Test 12
+*** 	solution length:		3
+*** PASS: test_cases\q8\closest_dot_13.test
+*** 	pacman layout:		Test 13
+*** 	solution length:		1
+*** PASS: test_cases\q8\closest_dot_2.test
+*** 	pacman layout:		Test 2
+*** 	solution length:		1
+*** PASS: test_cases\q8\closest_dot_3.test
+*** 	pacman layout:		Test 3
+*** 	solution length:		1
+*** PASS: test_cases\q8\closest_dot_4.test
+*** 	pacman layout:		Test 4
+*** 	solution length:		3
+*** PASS: test_cases\q8\closest_dot_5.test
+*** 	pacman layout:		Test 5
+*** 	solution length:		1
+*** PASS: test_cases\q8\closest_dot_6.test
+*** 	pacman layout:		Test 6
+*** 	solution length:		2
+*** PASS: test_cases\q8\closest_dot_7.test
+*** 	pacman layout:		Test 7
+*** 	solution length:		1
+*** PASS: test_cases\q8\closest_dot_8.test
+*** 	pacman layout:		Test 8
+*** 	solution length:		1
+*** PASS: test_cases\q8\closest_dot_9.test
+*** 	pacman layout:		Test 9
+*** 	solution length:		1
+
+### Question q8: 3/3 ###
+
+
+Finished at 18:39:50
+
+Provisional grades
+==================
+Question q1: 3/3
+Question q2: 3/3
+Question q3: 0/3
+Question q4: 0/3
+Question q5: 3/3
+Question q6: 0/3
+Question q7: 0/4
+Question q8: 3/3
+------------------
+Total: 12/25
+
+Your grades are NOT yet registered.  To register your grades, make sure
+to follow your instructor's guidelines to receive credit on your project.
+
